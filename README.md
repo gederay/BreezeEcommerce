@@ -1,3 +1,7 @@
+<h1 align="center">Laravel Breeze Simple Ecommerce/ Store</h1>
+<h2 align="center"> Here's My Personal Project Using Laravel Breeze and Tailwind Css</h2>
+<p align="center">Develop by: Rai Sudana, I Gede || email: raysudana@gmail.com</p>
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
