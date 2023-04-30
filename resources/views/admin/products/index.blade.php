@@ -7,8 +7,6 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
-
             <!-- component -->
             <section class="container px-4 mx-auto">
                 <div class="sm:flex sm:items-center sm:justify-between">
@@ -28,7 +26,7 @@
                     </div>
 
                     <div class="flex items-center mt-4 gap-x-3">
-                        <button
+                        <a href="{{ route('admin.products.create') }}"
                             class="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600 dark:hover:bg-blue-500 dark:bg-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-5 h-5">
@@ -37,7 +35,7 @@
                             </svg>
 
                             <span>Add Product</span>
-                        </button>
+                        </a>
                     </div>
                 </div>
 
@@ -125,7 +123,8 @@
                                             <td
                                                 class="flex justify-center px-4 py-4 text-sm font-medium text-gray-500 dark:text-gray-400 whitespace-nowrap">
                                                 <img class="object-cover w-30 h-20"
-                                                    src="{{ asset('storage/placeholder.png') }}" alt="">
+                                                    src="{{ asset('storage/products/' . $product->image) }}"
+                                                    alt="{{ $product->title }}">
                                             </td>
 
                                             <td
@@ -191,8 +190,6 @@
                     </div>
                 </div>
             </section>
-
-
         </div>
     </div>
 </x-app-layout>
