@@ -63,6 +63,8 @@
 
     @section('scripts')
     <script>
+        FilePond.registerPlugin(FilePondPluginImagePreview);
+
         // Get a reference to the file input element
         const input = document.querySelector('input[id="image"]');
         // Create a FilePond instance
