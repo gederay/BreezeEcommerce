@@ -1,6 +1,7 @@
 <div class="bg-white shadow-md rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700">
     <a href="#">
-        <img class="rounded-t-lg p-4 object-cover h-80 w-96" src="{{ $productImage }}" alt="">
+        <img class="rounded-t-lg p-4 object-cover h-80 w-96 hover:scale-105 hover:rotate-1 transition-transform"
+            src="{{ $productImage }}" alt="">
     </a>
     <div class="px-5 pb-5">
         <a href="#">
