@@ -32,8 +32,8 @@ class CartController extends Controller
     {
         $quantity = $request->post('quantity', 1);
         $user = $request->user();
-        if ($user) {
 
+        if ($user) {
             $cartItem = CartItem::where(['user_id' => $user->id, 'product_id' => $product->id])->first();
 
             if ($cartItem) {
@@ -43,17 +43,18 @@ class CartController extends Controller
                 $data = [
                     'user_id' => $request->user()->id,
                     'product_id' => $product->id,
-                    'quantity' => $quantity,
+                    'quantity' => $quantity
                 ];
+
                 CartItem::create($data);
             }
-
             return response([
                 'count' => Cart::getCartItemsCount()
             ]);
         } else {
             $cartItems = json_decode($request->cookie('cart_items', '[]'), true);
             $productFound = false;
+
             foreach ($cartItems as &$item) {
                 if ($item['product_id'] === $product->id) {
                     $item['quantity'] += $quantity;
@@ -71,9 +72,12 @@ class CartController extends Controller
             }
             Cookie::queue('cart_items', json_encode($cartItems), 60 * 24 * 30);
 
-            return response(['count' => Cart::getCountFromItems($cartItems)]);
+            return response([
+                'count' => Cart::getCountFromItems($cartItems)
+            ]);
         }
     }
+
 
     public function remove(Request $request, Product $product)
     {
