@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Customer\ProductController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
-use App\Http\Controllers\Admin\UploadController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Customer\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,17 +19,25 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-Route::get('/', function () {
-    return view('store.home');
-})->name('store.home');
 
-Route::resource('/products', ProductController::class);
+Route::middleware(['guestOrVerified'])->group(function () {
+    Route::get('/', function () {
+        return view('store.home');
+    })->name('store.home');
 
-Route::get('/contacts', function () {
-    return view('store.contacts');
-})->name('store.contacts');
+    Route::resource('/products', ProductController::class);
 
+    Route::get('/contacts', function () {
+        return view('store.contacts');
+    })->name('store.contacts');
 
+    Route::prefix('/cart')->name('cart.')->group(function () {
+        Route::get('/', [CartController::class, 'index'])->name('index');
+        Route::post('/add/{product:slug}', [CartController::class, 'add'])->name('add');
+        Route::post('/remove/{product:slug}', [CartController::class, 'remove'])->name('remove');
+        Route::post('/update-quantity/{product:slug}', [CartController::class, 'updateQuantity'])->name('update-quantity');
+    });
+});
 
 Route::middleware('auth', 'verified')->prefix('admin')->as('admin.')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

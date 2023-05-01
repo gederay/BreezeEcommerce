@@ -12,6 +12,7 @@ class CardProduct extends Component
     public $productName;
     public $productRating;
     public $productPrice;
+    public $productAddToCart;
 
     /**
      * Create a new component instance.
@@ -20,12 +21,14 @@ class CardProduct extends Component
         $productImage,
         $productName,
         $productRating,
-        $productPrice
+        $productPrice,
+        $productAddToCart
     ) {
         $this->productImage = $productImage;
         $this->productName = $productName;
         $this->productRating = $productRating;
         $this->productPrice = $productPrice;
+        $this->productAddToCart = $productAddToCart;
     }
 
     /**

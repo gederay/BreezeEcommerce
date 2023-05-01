@@ -122,7 +122,7 @@
 
                                             <td
                                                 class="flex justify-center px-4 py-4 text-sm font-medium text-gray-500 dark:text-gray-400 whitespace-nowrap">
-                                                <img class="object-cover w-30 h-20"
+                                                <img class="object-cover w-20 h-20 rounded-full"
                                                     src="{{ asset('storage/products/' . $product->image) }}"
                                                     alt="{{ $product->title }}">
                                             </td>
@@ -144,8 +144,15 @@
                                             </td>
 
                                             <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                                <a class="text-yellow-400" href="">Edit</a>
-                                                <a class="ml-4 text-red-700" href="">Delete</a>
+                                                <a class="text-yellow-400"
+                                                    href="{{ route('admin.products.edit', $product->slug) }}">Edit</a>
+                                                <form class="inline-flex"
+                                                    action="{{ route('admin.products.destroy', $product->slug) }}"
+                                                    method="Post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button class="ml-4 text-red-700">Delete</button>
+                                                </form>
                                             </td>
                                         </tr>
                                         @endforeach
