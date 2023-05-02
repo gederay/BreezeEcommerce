@@ -1,10 +1,13 @@
 import './bootstrap';
 
 import Alpine from 'alpinejs';
-// import collapse from '@alpinejs/collapse'
 import {get, post} from "./http.js";
+import money from 'alpinejs-money'
 
+// import collapse from '@alpinejs/collapse'
 // Alpine.plugin(collapse)
+
+Alpine.plugin(money)
 
 window.Alpine = Alpine;
 
