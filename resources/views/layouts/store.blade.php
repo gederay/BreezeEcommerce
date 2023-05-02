@@ -54,7 +54,7 @@
                         </div>
 
                         <div x-data="{
-                            cartItemsCount: {{ \App\Http\Helpers\Cart::getCartItemsCount() }}
+                            cartItemsCount: {{ \App\Helpers\Cart::getCartItemsCount() }}
                         }" @cart-change.window="cartItemsCount = $event.detail.count" class="flex items-center">
                             <!-- Cart Icon -->
                             <div class="flex items-center justify-center mr-5 cursor-pointer">

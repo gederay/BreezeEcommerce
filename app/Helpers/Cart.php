@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Helpers;
+namespace App\Helpers;
 
 use App\Models\Product;
 use App\Models\CartItem;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cookie;
 
 class Cart
 {
@@ -77,6 +78,7 @@ class Cart
 
         if (!empty($newCartItems)) {
             CartItem::insert($newCartItems);
+            Cookie::forget($cartItems);
         }
     }
 
