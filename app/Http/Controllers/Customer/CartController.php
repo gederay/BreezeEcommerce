@@ -14,13 +14,6 @@ class CartController extends Controller
 {
     public function index()
     {
-        // $cartItems = Cart::getCartItems();
-
-        // $ids = Arr::pluck($cartItems, 'product_id');
-        // $products = Product::query()->where('id', $ids)->get();
-        // $cartItems = Arr::keyBy($cartItems, 'product_id');
-        // $total = 0;
-
         list($products, $cartItems) = Cart::getProductsAndCartItems();
         $total = 0;
         foreach ($products as $product) {
@@ -88,62 +81,50 @@ class CartController extends Controller
     public function remove(Request $request, Product $product)
     {
         $user = $request->user();
-
         if ($user) {
             $cartItem = CartItem::query()->where(['user_id' => $user->id, 'product_id' => $product->id])->first();
-
             if ($cartItem) {
                 $cartItem->delete();
             }
 
             return response([
-                'count' => Cart::getCartItemsCount()
+                'count' => Cart::getCartItemsCount(),
             ]);
         } else {
-            $cartItems = json_decode($request->cookie('cart_items', [], true));
-            foreach ($cartItems as $i => $item) {
+            $cartItems = json_decode($request->cookie('cart_items', '[]'), true);
+            foreach ($cartItems as $i => &$item) {
                 if ($item['product_id'] === $product->id) {
                     array_splice($cartItems, $i, 1);
                     break;
                 }
             }
-
             Cookie::queue('cart_items', json_encode($cartItems), 60 * 24 * 30);
 
-            return response([
-                'count' => Cart::getCountFromItems($cartItems)
-            ]);
+            return response(['count' => Cart::getCountFromItems($cartItems)]);
         }
     }
-
 
     public function updateQuantity(Request $request, Product $product)
     {
         $quantity = (int)$request->post('quantity');
         $user = $request->user();
-
         if ($user) {
-            CartItem::where(['iser_id' => $request->user()->id, 'product_id' => $product->id])->update([
-                'quantity' => $quantity
-            ]);
+            CartItem::where(['user_id' => $request->user()->id, 'product_id' => $product->id])->update(['quantity' => $quantity]);
 
             return response([
-                'count' => Cart::getCartItemsCount()
+                'count' => Cart::getCartItemsCount(),
             ]);
         } else {
             $cartItems = json_decode($request->cookie('cart_items', '[]'), true);
-            foreach ($cartItems as $item) {
+            foreach ($cartItems as &$item) {
                 if ($item['product_id'] === $product->id) {
                     $item['quantity'] = $quantity;
                     break;
                 }
             }
-
             Cookie::queue('cart_items', json_encode($cartItems), 60 * 24 * 30);
 
-            return response([
-                'count' => Cart::getCountFromItems($cartItems)
-            ]);
+            return response(['count' => Cart::getCountFromItems($cartItems)]);
         }
     }
 }

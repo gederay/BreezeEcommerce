@@ -25,7 +25,7 @@
             <template x-if="cartItems.length">
                 <div class="">
                     <!-- Product Item -->
-                    <template x-for="product in cartItems" :key="product.id">
+                    <template x-for="product of cartItems" :key="product.id">
                         <div x-data="productItem(product)">
                             <div class="w-full flex flex-col sm:flex-row items-center gap-4 flex-1">
                                 <img :src="product.image" class="object-cover h-32 w-40 rounded-lg"

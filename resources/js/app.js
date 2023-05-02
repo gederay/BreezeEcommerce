@@ -80,15 +80,16 @@ document.addEventListener("alpine:init", async () => {
               this.cartItems = this.cartItems.filter(p => p.id !== product.id)
             })
         },
+
         changeQuantity() {
-          post(this.product.updateQuantityUrl, {quantity: product.quantity})
-            .then(result => {
-              this.$dispatch('cart-change', {count: result.count})
-              this.$dispatch("notify", {
-                message: "The item quantity was updated",
-              });
-            })
-        },
+            post(this.product.updateQuantityUrl, {quantity: product.quantity})
+              .then(result => {
+                this.$dispatch('cart-change', {count: result.count})
+                this.$dispatch("notify", {
+                  message: "The item quantity was updated",
+                });
+              })
+          },
       };
     });
   });
