@@ -5,7 +5,6 @@ import {get, post} from "./http.js";
 import money from 'alpinejs-money'
 import slug from 'alpinejs-slug'
 
-
 // import collapse from '@alpinejs/collapse'
 // Alpine.plugin(collapse)
 
@@ -13,7 +12,6 @@ Alpine.plugin(slug)
 Alpine.plugin(money)
 
 window.Alpine = Alpine;
-
 
 document.addEventListener("alpine:init", async () => {
 

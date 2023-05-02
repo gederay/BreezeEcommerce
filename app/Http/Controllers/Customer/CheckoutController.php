@@ -98,7 +98,9 @@ class CheckoutController extends Controller
         CartItem::where(['user_id' => $user->id])->delete();
 
         // return redirect($session->url);
-        return back();
+        return view('store.checkout.success', [
+            'customer' => $request->user()
+        ]);
     }
 
     public function success(Request $request)
