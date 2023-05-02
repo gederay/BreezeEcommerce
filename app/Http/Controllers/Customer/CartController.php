@@ -53,7 +53,6 @@ class CartController extends Controller
         } else {
             $cartItems = json_decode($request->cookie('cart_items', '[]'), true);
             $productFound = false;
-
             foreach ($cartItems as &$item) {
                 if ($item['product_id'] === $product->id) {
                     $item['quantity'] += $quantity;
@@ -71,12 +70,9 @@ class CartController extends Controller
             }
             Cookie::queue('cart_items', json_encode($cartItems), 60 * 24 * 30);
 
-            return response([
-                'count' => Cart::getCountFromItems($cartItems)
-            ]);
+            return response(['count' => Cart::getCountFromItems($cartItems)]);
         }
     }
-
 
     public function remove(Request $request, Product $product)
     {

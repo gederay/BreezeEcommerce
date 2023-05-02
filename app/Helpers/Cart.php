@@ -65,20 +65,20 @@ class Cart
         $dbCartItems = CartItem::where(['user_id' => $request->user()->id])->get()->keyBy('product_id');
         $newCartItems = [];
 
-        foreach ($cartItems as $cartitem) {
-            if (isset($dbCartItems[$cartItems['product_id']])) {
+        foreach ($cartItems as $cartItem) {
+            if (isset($dbCartItems[$cartItem['product_id']])) {
                 continue;
             }
             $newCartItems[] = [
                 'user_id' => $request->user()->id,
-                'product_id' => $cartitem['product_id'],
-                'quantity' => $cartitem['quantity']
+                'product_id' => $cartItem['product_id'],
+                'quantity' => $cartItem['quantity'],
             ];
         }
 
         if (!empty($newCartItems)) {
             CartItem::insert($newCartItems);
-            Cookie::forget($cartItems);
+            Cookie::queue(Cookie::forget('cart_items'));
         }
     }
 
