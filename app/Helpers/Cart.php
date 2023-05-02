@@ -5,6 +5,7 @@ namespace App\Helpers;
 use App\Models\Product;
 use App\Models\CartItem;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cookie;
 
 class Cart
@@ -35,7 +36,10 @@ class Cart
 
         if ($user) {
             return CartItem::where('user_id', $user->id)->get()->map(
-                fn ($item) => ['product_id' => $item->product_id, 'quantity' => $item->quantity]
+                fn ($item) => [
+                    'product_id' => $item->product_id,
+                    'quantity' => $item->quantity,
+                ]
             );
         } else {
             return self::getCookieCartItems();
@@ -73,6 +77,8 @@ class Cart
                 'user_id' => $request->user()->id,
                 'product_id' => $cartItem['product_id'],
                 'quantity' => $cartItem['quantity'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ];
         }
 

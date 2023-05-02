@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Helpers\Cart;
 use App\Models\Product;
 use App\Models\CartItem;
-use App\Helpers\Cart;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cookie;
 
@@ -65,7 +66,7 @@ class CartController extends Controller
                     'user_id' => null,
                     'product_id' => $product->id,
                     'quantity' => $quantity,
-                    'price' => $product->price
+                    'price' => $product->price,
                 ];
             }
             Cookie::queue('cart_items', json_encode($cartItems), 60 * 24 * 30);
@@ -78,7 +79,11 @@ class CartController extends Controller
     {
         $user = $request->user();
         if ($user) {
-            $cartItem = CartItem::query()->where(['user_id' => $user->id, 'product_id' => $product->id])->first();
+            $cartItem = CartItem::query()->where([
+                'user_id' => $user->id,
+                'product_id' => $product->id
+            ])->first();
+
             if ($cartItem) {
                 $cartItem->delete();
             }

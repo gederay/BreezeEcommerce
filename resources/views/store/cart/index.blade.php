@@ -65,7 +65,7 @@
                             Shipping and taxes calculated at checkout.
                         </p>
 
-                        <form action="" method="post">
+                        <form action="{{ route('admin.cart.checkout') }}" method="post">
                             @csrf
                             <button type="submit"
                                 class="hover:shadow-form w-full rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
