@@ -1,12 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\CustomerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Customer\CartController;
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Customer\ProductController;
 use App\Http\Controllers\Customer\CheckoutController;
+use App\Http\Controllers\Admin\UploadController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 
 /*
@@ -62,6 +64,8 @@ Route::middleware('auth', 'verified')->prefix('admin')->as('admin.')->group(func
     Route::get('/report', [DashboardController::class, 'report'])->name('dashboard.report');
 
     Route::resource('/products', AdminProductController::class);
+    Route::resource('/orders', OrderController::class);
+    Route::resource('/customers', CustomerController::class);
 });
 
 require __DIR__ . '/auth.php';
